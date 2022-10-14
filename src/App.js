@@ -1,22 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 function App() {
+
+  const [ip, setIP] = useState('');
+  const getData = async () => {
+    const res = await axios.get('https://geolocation-db.com/json/')
+    console.log(res.data.IPv4);
+    setIP(res.data.IPv4)
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          My <code>IP</code> address is{' -->'} <code>{ip}</code>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
